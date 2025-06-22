@@ -1,5 +1,4 @@
 import React from 'react';
-import {SignOutButton, useUser} from "@clerk/clerk-react";
 import {
     DropdownMenu,
     DropdownMenuContent, DropdownMenuItem,
@@ -8,6 +7,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import {Avatar, AvatarImage} from "@/components/ui/avatar";
 import {ChevronsLeftRight} from "lucide-react";
+import {SignOutButton, useUser} from "@clerk/nextjs";
 
 export const UserItem = () => {
     const {user} = useUser();

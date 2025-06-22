@@ -1,6 +1,5 @@
 "use client"
 
-import {useUser} from "@clerk/clerk-react";
 import {useRouter} from "next/navigation";
 import {useQuery} from "convex/react";
 import {api} from "@/convex/_generated/api";
@@ -14,6 +13,7 @@ import {
     CommandItem,
     CommandList
 } from "@/components/ui/command";
+import { useUser } from "@clerk/nextjs";
 
 export const SearchCommand = () => {
     const {user} = useUser();

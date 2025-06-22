@@ -5,9 +5,7 @@ import {ArrowRight} from "lucide-react";
 import {useConvexAuth} from "convex/react";
 import {Spinner} from "@/components/spinner";
 import Link from "next/link";
-import {SignInButton} from "@clerk/clerk-react";
-
-export const dynamic = 'force-dynamic'
+import { SignInButton } from "@clerk/nextjs";
 
 export const Heading = () => {
     const {isLoading, isAuthenticated} = useConvexAuth();
