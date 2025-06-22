@@ -1,12 +1,11 @@
 "use client"
 
-import {Calendar, ChevronsLeft, MenuIcon, Plus, PlusCircle, Search, Settings, Trash} from "lucide-react";
+import {Calendar, ChevronsLeft, MenuIcon, PlusCircle, Search, Settings, Trash} from "lucide-react";
 import {ComponentRef, useEffect, useRef, useState} from "react";
 import {useMediaQuery} from "usehooks-ts";
 import {useParams, usePathname, useRouter} from "next/navigation";
 import {cn} from "@/lib/utils";
 import {UserItem} from "@/app/(main)/_components/user-item";
-import Logo from "@/app/(marketing)/_components/logo";
 import {api} from "@/convex/_generated/api";
 import {useMutation} from "convex/react";
 import {toast} from "sonner";

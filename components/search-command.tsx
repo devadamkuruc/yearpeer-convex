@@ -14,7 +14,6 @@ import {
     CommandItem,
     CommandList
 } from "@/components/ui/command";
-import {FileIcon} from "lucide-react";
 
 export const SearchCommand = () => {
     const {user} = useUser();

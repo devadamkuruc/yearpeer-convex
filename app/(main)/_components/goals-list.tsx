@@ -4,7 +4,6 @@ import {useParams, useRouter} from "next/navigation";
 import {useQuery} from "convex/react";
 import {api} from "@/convex/_generated/api";
 import Item from "./item";
-import {cn} from "@/lib/utils";
 
 export const GoalsList = () => {
     const router = useRouter();

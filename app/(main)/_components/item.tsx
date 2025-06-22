@@ -58,12 +58,6 @@ const Item = ({
         })
     }
 
-
-    const handleExpand = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        event.stopPropagation();
-        onExpand?.();
-    }
-
     const onCreate = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         event.stopPropagation();
         if (!id) return;
@@ -82,8 +76,6 @@ const Item = ({
             error: "Failed to creating new goal.",
         })
     }
-
-    const ChevronIcon = expanded ? ChevronDown : ChevronRight;
 
     return (
         <div
