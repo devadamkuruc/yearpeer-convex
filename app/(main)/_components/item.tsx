@@ -1,6 +1,6 @@
 "use client"
 
-import {ChevronDown, ChevronRight, LucideIcon, MoreHorizontal, Plus, Trash} from "lucide-react";
+import { LucideIcon, MoreHorizontal, Plus, Trash} from "lucide-react";
 import {Id} from "@/convex/_generated/dataModel";
 import {cn} from "@/lib/utils";
 import {Skeleton} from "@/components/ui/skeleton";
