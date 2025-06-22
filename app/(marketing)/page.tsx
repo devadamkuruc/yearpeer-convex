@@ -1,3 +1,6 @@
+// Force dynamic rendering at the page level
+export const dynamic = 'force-dynamic'
+
 import {Heading} from "@/app/(marketing)/_components/heading";
 import Heroes from "@/app/(marketing)/_components/heroes";
 import Footer from "@/app/(marketing)/_components/footer";

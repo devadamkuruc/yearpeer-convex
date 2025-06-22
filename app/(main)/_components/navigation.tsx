@@ -1,7 +1,7 @@
 "use client"
 
 import {Calendar, ChevronsLeft, MenuIcon, PlusCircle, Search, Settings, Trash} from "lucide-react";
-import {ComponentRef, useEffect, useRef, useState} from "react";
+import {ComponentRef, useEffect, useRef, useState, useCallback} from "react"; // Add useCallback
 import {useMediaQuery} from "usehooks-ts";
 import {useParams, usePathname, useRouter} from "next/navigation";
 import {cn} from "@/lib/utils";
@@ -20,7 +20,7 @@ import Navbar from "@/app/(main)/_components/navbar";
 export const Navigation = () => {
     const search = useSearch();
     const settings = useSettings();
-    const router = useRouter(); // Add this hook
+    const router = useRouter();
     const params = useParams();
     const pathname = usePathname();
     const isMobile = useMediaQuery("(max-width: 768px)");
@@ -32,20 +32,49 @@ export const Navigation = () => {
     const [isResetting, setIsResetting] = useState(false);
     const [isCollapsed, setIsCollapsed] = useState(isMobile);
 
+    // Wrap resetWidth in useCallback
+    const resetWidth = useCallback(() => {
+        if (sidebarRef.current && navbarRef.current) {
+            setIsCollapsed(false);
+            setIsResetting(true);
+
+            sidebarRef.current.style.width = isMobile ? "100%" : "240px";
+            navbarRef.current.style.setProperty("width", isMobile ? "0" : "calc(100% - 240px");
+            navbarRef.current.style.setProperty("left", isMobile ? "100%" : "240px");
+
+            setTimeout(() => setIsResetting(false), 300);
+        }
+    }, [isMobile]);
+
+    // Wrap collapse in useCallback too
+    const collapse = useCallback(() => {
+        if (sidebarRef.current && navbarRef.current) {
+            setIsCollapsed(true);
+            setIsResetting(true);
+
+            sidebarRef.current.style.width = "0";
+            navbarRef.current.style.setProperty("width", "100%");
+            navbarRef.current.style.setProperty("left", "0");
+
+            setTimeout(() => setIsResetting(false), 300);
+        }
+    }, []);
+
     useEffect(() => {
         if (isMobile) {
             collapse();
         } else {
             resetWidth();
         }
-    }, [isMobile])
+    }, [isMobile, resetWidth, collapse]) // Now include the dependencies
 
     useEffect(() => {
         if (isMobile) {
             collapse()
         }
-    }, [pathname, isMobile]);
+    }, [pathname, isMobile, collapse]);
 
+    // Rest of your component stays the same...
     const handleMouseDown = (
         event: React.MouseEvent<HTMLDivElement, MouseEvent>
     ) => {
@@ -75,32 +104,6 @@ export const Navigation = () => {
         isResizingRef.current = false;
         document.removeEventListener("mousemove", handleMouseMove);
         document.removeEventListener("mouseup", handleMouseUp);
-    }
-
-    const resetWidth = () => {
-        if (sidebarRef.current && navbarRef.current) {
-            setIsCollapsed(false);
-            setIsResetting(true);
-
-            sidebarRef.current.style.width = isMobile ? "100%" : "240px";
-            navbarRef.current.style.setProperty("width", isMobile ? "0" : "calc(100% - 240px");
-            navbarRef.current.style.setProperty("left", isMobile ? "100%" : "240px");
-
-            setTimeout(() => setIsResetting(false), 300);
-        }
-    }
-
-    const collapse = () => {
-        if (sidebarRef.current && navbarRef.current) {
-            setIsCollapsed(true);
-            setIsResetting(true);
-
-            sidebarRef.current.style.width = "0";
-            navbarRef.current.style.setProperty("width", "100%");
-            navbarRef.current.style.setProperty("left", "0");
-
-            setTimeout(() => setIsResetting(false), 300);
-        }
     }
 
     const handleCreate = () => {

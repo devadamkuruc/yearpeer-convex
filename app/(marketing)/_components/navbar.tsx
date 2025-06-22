@@ -9,10 +9,21 @@ import {SignInButton, UserButton} from "@clerk/clerk-react";
 import {Button} from "@/components/ui/button";
 import {Spinner} from "@/components/spinner";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+
+// Force dynamic rendering
+export const dynamic = 'force-dynamic'
 
 export const Navbar = () => {
     const {isAuthenticated, isLoading} = useConvexAuth();
     const scrolled = useScrollTop();
+    const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
+    const currentYear = new Date().getFullYear();
 
     return (
         <div className={cn(
@@ -21,31 +32,34 @@ export const Navbar = () => {
         )}>
             <Logo/>
             <div className="md:ml-auto md:justify-end justify-between w-full flex items-center gap-x-2">
-                {isLoading && (
+                {!isMounted || isLoading ? (
                     <Spinner/>
-                )}
-                {!isAuthenticated && !isLoading && (
+                ) : (
                     <>
-                        <SignInButton mode="modal">
-                            <Button variant="ghost" size="sm">
-                                Log in
-                            </Button>
-                        </SignInButton>
-                        <SignInButton mode="modal">
-                            <Button size="sm">
-                                Get Yearpeer free
-                            </Button>
-                        </SignInButton>
-                    </>
-                )}
-                {isAuthenticated && !isLoading && (
-                    <>
-                        <Button variant="ghost" size="sm" asChild>
-                            <Link href="/calendar/2025">
-                                Enter Yearpeer
-                            </Link>
-                        </Button>
-                        <UserButton />
+                        {!isAuthenticated && (
+                            <>
+                                <SignInButton mode="modal">
+                                    <Button variant="ghost" size="sm">
+                                        Log in
+                                    </Button>
+                                </SignInButton>
+                                <SignInButton mode="modal">
+                                    <Button size="sm">
+                                        Get Yearpeer free
+                                    </Button>
+                                </SignInButton>
+                            </>
+                        )}
+                        {isAuthenticated && (
+                            <>
+                                <Button variant="ghost" size="sm" asChild>
+                                    <Link href={`/calendar/${currentYear}`}>
+                                        Enter Yearpeer
+                                    </Link>
+                                </Button>
+                                <UserButton />
+                            </>
+                        )}
                     </>
                 )}
                 <ModeToggle/>

@@ -26,7 +26,7 @@ const Banner = ({goalId}: BannerProps) => {
             error: "Failed to delete a goal.",
         });
 
-        router.push(`/calendar/2025`);
+        router.push(`/calendar/${new Date().getFullYear()}`);
     };
 
     const onRestore = () => {

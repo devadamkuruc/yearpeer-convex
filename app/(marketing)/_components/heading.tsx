@@ -7,6 +7,8 @@ import {Spinner} from "@/components/spinner";
 import Link from "next/link";
 import {SignInButton} from "@clerk/clerk-react";
 
+export const dynamic = 'force-dynamic'
+
 export const Heading = () => {
     const {isLoading, isAuthenticated} = useConvexAuth();
 
@@ -26,7 +28,7 @@ export const Heading = () => {
             )}
             {isAuthenticated && !isLoading && (
                 <Button asChild>
-                    <Link href="/calendar/2025">
+                    <Link href={`/calendar/${new Date().getFullYear()}`}>
                         Enter Yearpeer
                         <ArrowRight className="h-4 w-4 ml-2"/>
                     </Link>
